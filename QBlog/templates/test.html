@@ -1,0 +1,82 @@
+<!--<!doctype html>
+<title>{% block title %}{% endblock %} - Flaskr</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<nav>
+    <h1>Flaskr</h1>
+    <ul>
+        {% if g.user %}
+        <li><span>{{ g.user['username'] }}</span>
+        <li>
+            <a href="{{ url_for('auth.logout') }}">Log Out</a>
+        {% else %}
+        <li><a href="{{ url_for('about') }}">Register</a>
+        <li>
+            <a href="{{ url_for('home') }}">Log In</a>
+        {% endif %}
+    </ul>
+</nav>
+<section class="content">
+    <header>
+        {% block header %}{% endblock %}
+    </header>
+    {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+    {% endfor %}
+</section>--><!--%内容无法注释，不能包含两个%命令-->
+{% extends "layout.html" %}
+
+{% block content %}
+<h2>{{ serach_data }}.</h2>
+<div class="layui-container">
+    <div class="layui-row layui-col-space15 main">
+        <div class="layui-col-md9 layui-col-lg9">
+            <div id="index">
+
+            </div>
+        </div>
+    </div>
+</div>
+<button type="button" id="denglubutton">Test</button>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $("#denglubutton").click(function () {
+        /*$.ajax({
+            method: "POST",
+            url: 'http://localhost:56003/api',//url_for('api'),
+            contentType: 'application/json',
+            data: JSON.stringify({
+                "oper": "getlast",//"getlast",getcount
+                "num": 10
+            }),
+            success: function (data) {
+                //console.log(JSON.parse(data))
+                console.log(data)//返回json数据
+            }
+        });*/
+        $.ajax({
+            method: "POST",
+            url: "{{ url_for('home') }}",
+            contentType: 'application/json',
+            data: JSON.stringify({
+                "curr": 1
+                , "limit": 5
+            }),
+            success: function (data) {
+                //console.log(JSON.parse(data))
+                console.log(data)//返回json数据
+                console.log(data.length)
+                var str=''
+                for(var i=0;i<data.length;i++){
+                    str += '<div><h2>' + data[i].Title + '</h2><h2>' + data[i].Up_time + '</h2></div>'
+                }
+                $("#index").html(str);
+                //$("#index").html("{% for item in" + data + "%}<div class='title-article list-card'>< div class= 'list-pic'><a href='{{url_for('article',post_id=2)}}'><img src='/static/img/00.png' >' class='img-full'></a></div><a href='{{url_for('article',post_id=2)}}'><h1>{{ item.Title }}</h1><p>{{ item.Abstract }}</p></a><div class='title-msg'><span><i class='layui-icon'>&#xe705;</i> CV </span><span><i class='layui-icon'>&#xe60e;</i> {{ item.Up_time }} </span><span class='layui-hide-xs'><i class='layui-icon'>&#xe62c;</i> 0℃</span><span class='layui-hide-xs'><i class='layui-icon'>&#xe63a;</i> 0条</span></div></div> {% endfor %}");
+            }
+        });
+    });
+
+</script>
+{% endblock %}

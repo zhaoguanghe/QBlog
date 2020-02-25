@@ -1,0 +1,131 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<!--代码编码为utf-8,VS新建页面为utf-8-bom,导致页面顶部有空白框无法置顶-->
+<div class="layui-container">
+    <div class="layui-row layui-col-space15 main">
+        <div class="layui-col-md9 layui-col-lg9">
+            <div id="index"><!--动态改变div的内容-->
+                {% for item in cards %}
+                <div class="title-article list-card">
+                    <div class="list-pic">
+                        <a href="{{url_for('article',post_id=item.Id)}}">
+                            <img src="/static/img/00.png" class="img-full">
+                        </a>
+                    </div>
+                    <a href="{{url_for('article',post_id=item.Id)}}">
+                        <h1>{{item.Title}}</h1>
+                        <p>摘要 {{item.Abstract}}</p>
+                    </a>
+                    <div class="title-msg">
+                        <span><i class="layui-icon">&#xe705;</i> CV </span>
+                        <span><i class="layui-icon">&#xe60e;</i> {{item.Up_time}} </span>
+                        <span class="layui-hide-xs"><i class="layui-icon">&#xe62c;</i> 0℃</span>
+                        <span class="layui-hide-xs"><i class="layui-icon">&#xe63a;</i> 0条</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="page-navigator">
+                <div id="demo7"></div>
+            </div>
+        </div>
+
+            <div class="sidebar layui-col-md3 layui-col-lg3">
+                <div class="component">
+                    <form class="layui-form" id="search" method="post" action="/search" role="search">
+                        <div class="layui-inline input">
+                            <input type="text" id="s" name="s" class="layui-input" required lay-verify="required" placeholder="输入关键字搜索" />
+                        </div>
+                        <div class="layui-inline">
+                            <input id="search_btn" class="layui-btn layui-btn-sm layui-btn-primary" type="submit" value="GO">
+                        </div>
+                    </form>
+                </div>
+                <div class="column">
+                    <h3 class="title-sidebar"><i class="layui-icon">&#xe705;</i> 栏目分类</h3>
+                    <ul class="layui-row layui-col-space5">
+                        <!--for item in cards endfor -->
+                        <li class="layui-col-md12 layui-col-xs6"><a href=""><i class="layui-icon">&#xe63c;</i> CV <span class="layui-badge layui-bg-gray">57</span></a></li>
+                        <li class="layui-col-md12 layui-col-xs6"><a href=""><i class="layui-icon">&#xe63c;</i> AI <span class="layui-badge layui-bg-gray">97</span></a></li>
+                        <li class="layui-col-md12 layui-col-xs6"><a href=""><i class="layui-icon">&#xe63c;</i> NLP <span class="layui-badge layui-bg-gray">20</span></a></li>
+                        <li class="layui-col-md12 layui-col-xs6"><a href=""><i class="layui-icon">&#xe63c;</i> ML <span class="layui-badge layui-bg-gray">35</span></a></li>
+                        <li class="layui-col-md12 layui-col-xs6"><a href=""><i class="layui-icon">&#xe63c;</i> Other <span class="layui-badge layui-bg-gray">41</span></a></li>
+                    </ul>
+                </div>
+                <div class="tags">
+                    <h3 class="title-sidebar"><i class="layui-icon">&#xe66e;</i>传送门</h3>
+                    <div>
+                        <!--for item in cards endfor -->
+                        <a class="layui-btn layui-btn-xs layui-btn-primary" style="color:#00ff60" href="https://blog.csdn.net/zhaoguanghe" title='手写体数字在线识别'>CNN</a>
+                        <a class="layui-btn layui-btn-xs layui-btn-primary" style="color:#ff006e" href="https://www.xiangyundiaocha.club/dist/index.html" title='建大扶贫超市'>Shopping</a>
+                        <a class="layui-btn layui-btn-xs layui-btn-primary" style="color:#ff6a00" href="https://www.xiangyundiaocha.club/SharingWEB/Index.aspx" title='社区物品共享网'>ShareSite</a>
+                        <a class="layui-btn layui-btn-xs layui-btn-primary" style="color:#00ff90" href="https://www.xiangyundiaocha.club/yueermht/index.html" title='月儿猕猴桃TM'>Yueermht</a>
+                        <a class="layui-btn layui-btn-xs layui-btn-primary" style="color:#808080" href="https://www.xiangyundiaocha.club/h5pro/lottery.html" title='抽奖页面'>Lottery</a>
+                        <a class="layui-btn layui-btn-xs layui-btn-primary" style="color:#ffd800" href="https://blog.csdn.net/zhaoguanghe" title='小管家商品管理系统'>Xiaoguangjia</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    //分页本身逻辑控制
+    layui.use(['laypage', 'layer'], function () {
+        var laypage = layui.laypage
+            , layer = layui.layer;
+        //总页数大于页码总数
+        laypage.render({
+            elem: 'demo7'
+            , limit: 5
+            , count: '{{count}}' //数据总数
+            , jump: function (obj, first) {
+                //obj包含了当前分页的所有参数，比如：
+                //console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。第几页
+                //console.log(obj.limit); //得到每页显示的条数，默认10
+
+                //首次不执行
+                if (!first) {
+                    //console.log(obj.curr);
+                    //console.log(obj.limit); 
+                    //更新数据
+                     $.ajax({
+                        method: "POST",
+                         url: "{{ url_for('home') }}",
+                        contentType: 'application/json',
+                        data: JSON.stringify({
+                              "curr": obj.curr
+                            , "limit": obj.limit
+                        }),
+                         success: function (data) {
+                             //console.log(data)//返回json数据
+                             var str = ''//拼接html，参考https://blog.csdn.net/this_name_true/article/details/80401892
+                             for (var i = 0; i < data.length; i++) {
+                                 str += '<div class="title-article list-card"><div class="list-pic"><a href="https://habit.xiangyuandiaocha.club/article/' + data[i].Id + '"><img src="/static/img/00.png" class="img-full"></a></div><a href="https://habit.xiangyuandiaocha.club/article/' + data[i].Id +'"><h1>' + data[i].Title + '</h1><p>' + data[i].Title + '</p></a> <div class="title-msg"><span><i class="layui-icon">&#xe705;</i> CV </span><span><i class="layui-icon">&#xe60e;</i> ' + data[i].Up_time + ' </span><span class="layui-hide-xs"><i class="layui-icon">&#xe62c;</i> 0℃</span><span class="layui-hide-xs"><i class="layui-icon">&#xe63a;</i> 0条</span></div></div></div>';
+                             }
+                             $("#index").html(str);
+                         }
+                     });
+                }
+            }
+        });
+        //完整功能
+        /*laypage.render({
+            elem: 'demo7'
+            , count: 100
+            , layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']
+            , jump: function (obj) {
+                console.log(obj)
+            }
+        });*/
+    });
+
+    $("#search_btn").click(function () {
+        layer.msg('正在搜索');
+    })
+</script>
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="layui-container">
+    <div class="layui-row layui-col-space15 main">
+        <div class="map">
+            <span class="layui-breadcrumb">
+                <a href="{{ url_for('home') }}">首页</a>
+                <a><cite>关于</cite></a>
+            </span>
+        </div>
+        <div class="layui-col-md9 layui-col-lg9">
+            <div class="title-article text-center">
+                <h1>关于QBlog</h1>
+            </div>
+            <div class="text" itemprop="articleBody">
+                <div id="md_content_2" class="md_content markdown-body editormd-html-preview" style="min-height: 50px;">
+                    <p>QBlog采用flask、Layui框架搭建，QBlog定位为个人技术博客，QBlog源码已在<a style="color:#0e20eb" href="https://github.com/zhaoguanghe/QBlog">Github</a>开源，感谢<a style="color:#0e20eb" href="https://palletsprojects.com/">Flask</a>、<a style="color:#0e20eb" href="http://typecho.org/">Typecho</a>、<a style="color:#0e20eb" href="https://www.echo.so">Echo</a>、以及<a style="color:#0e20eb" href="https://www.echo.so/">宁采陈</a>等做出的开源工作。</p>
+                    <h3><a name="个人信息" class="reference-link"></a><span class="header-link octicon octicon-link"></span>个人信息</h3>
+                    <ul>
+                        <li>昵称：清风思月</li>
+                        <li>职业：学生</li>
+                        <li>Github：<a style="color:#0e20eb" href="https://github.com/zhaoguanghe">https://github.com/zhaoguanghe</a></li>
+                    </ul>
+                    <h3><a name="建博初衷" class="reference-link"></a><span class="header-link octicon octicon-link"></span>建博初衷</h3><p>项目备忘、转载备份、研究分享</p>
+                    <h3><a name="联系方式" class="reference-link"></a><span class="header-link octicon octicon-link"></span>联系方式</h3><p><a style="color:#0e20eb" href="mailto:1099615621@qq.com">1099615621@qq.com</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar layui-col-md3 layui-col-lg3">
+            <div class="component">
+                <form class="layui-form" id="search" method="post" action="/search" role="search">
+                    <div class="layui-inline input">
+                        <input type="text" id="s" name="s" class="layui-input" required lay-verify="required" placeholder="输入关键字搜索" />
+                    </div>
+                    <div class="layui-inline">
+                        <input id="search_btn" class="layui-btn layui-btn-sm layui-btn-primary" type="submit" value="GO">
+                    </div>
+                </form>
+            </div>
+            <div class="column">
+                <h3 class="title-sidebar"><i class="layui-icon">&#xe705;</i> 栏目分类</h3>
+                <ul class="layui-row layui-col-space5">
+                    <!--for item in cards endfor -->
+                    <li class="layui-col-md12 layui-col-xs6"><a href=""><i class="layui-icon">&#xe63c;</i> CV <span class="layui-badge layui-bg-gray">57</span></a></li>
+                    <li class="layui-col-md12 layui-col-xs6"><a href=""><i class="layui-icon">&#xe63c;</i> AI <span class="layui-badge layui-bg-gray">97</span></a></li>
+                    <li class="layui-col-md12 layui-col-xs6"><a href=""><i class="layui-icon">&#xe63c;</i> NLP <span class="layui-badge layui-bg-gray">20</span></a></li>
+                    <li class="layui-col-md12 layui-col-xs6"><a href=""><i class="layui-icon">&#xe63c;</i> ML <span class="layui-badge layui-bg-gray">35</span></a></li>
+                    <li class="layui-col-md12 layui-col-xs6"><a href=""><i class="layui-icon">&#xe63c;</i> Other <span class="layui-badge layui-bg-gray">41</span></a></li>
+                </ul>
+            </div>
+            <div class="tags">
+                <h3 class="title-sidebar"><i class="layui-icon">&#xe66e;</i>传送门</h3>
+                <div>
+                    <!--for item in cards endfor -->
+                    <a class="layui-btn layui-btn-xs layui-btn-primary" style="color:#00ff60" href="https://blog.csdn.net/zhaoguanghe" title='手写体数字在线识别'>CNN</a>
+                    <a class="layui-btn layui-btn-xs layui-btn-primary" style="color:#ff006e" href="https://www.xiangyundiaocha.club/dist/index.html" title='建大扶贫超市'>Shopping</a>
+                    <a class="layui-btn layui-btn-xs layui-btn-primary" style="color:#ff6a00" href="https://www.xiangyundiaocha.club/SharingWEB/Index.aspx" title='社区物品共享网'>ShareSite</a>
+                    <a class="layui-btn layui-btn-xs layui-btn-primary" style="color:#00ff90" href="https://www.xiangyundiaocha.club/yueermht/index.html" title='月儿猕猴桃TM'>Yueermht</a>
+                    <a class="layui-btn layui-btn-xs layui-btn-primary" style="color:#808080" href="https://www.xiangyundiaocha.club/h5pro/lottery.html" title='抽奖页面'>Lottery</a>
+                    <a class="layui-btn layui-btn-xs layui-btn-primary" style="color:#ffd800" href="https://blog.csdn.net/zhaoguanghe" title='小管家商品管理系统'>Xiaoguangjia</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    
+    $("#search_btn").click(function () {
+        layer.msg('正在搜索');
+    })
+</script>
+{% endblock %}

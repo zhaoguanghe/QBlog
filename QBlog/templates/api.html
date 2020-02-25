@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="layui-container">
+    <div class="layui-row layui-col-space15 main">
+        <div class="map">
+            <span class="layui-breadcrumb">
+                <a href="{{ url_for('home') }}">首页</a>
+                <a><cite>API</cite></a>
+            </span>
+        </div>
+        <div class="layui-col-md9 layui-col-lg9">
+            <div class="layui-card">
+                <div class="layui-card-header">手写体数字识别</div>
+                <div class="layui-card-body">
+                    使用多层感知器训练（DNN）模型，用于预测手写数字图片，并生成API供手机端调用
+                    <a style="color:#0e20eb" href="https://www.xiangyundiaocha.club/baiduAPI/MNIST_INFER.html">演示地址</a>
+                </div>
+            </div>
+            <div class="layui-card">
+                <div class="layui-card-header">原笔迹签名</div>
+                <div class="layui-card-body">
+                    使用signature_pad，用于原笔迹签名并保存图片到本地
+                    <a style="color:#0e20eb" href="https://www.xiangyundiaocha.club/h5pro/sign.html">演示地址</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar layui-col-md3 layui-col-lg3">
+            <div class="component">
+                <form class="layui-form" id="search" method="post" action="/search" role="search">
+                    <div class="layui-inline input">
+                        <input type="text" id="s" name="s" class="layui-input" required lay-verify="required" placeholder="输入关键字搜索" />
+                    </div>
+                    <div class="layui-inline">
+                        <input id="search_btn" class="layui-btn layui-btn-sm layui-btn-primary" type="submit" value="GO">
+                    </div>
+                </form>
+            </div>
+            <div class="column">
+                <h3 class="title-sidebar"><i class="layui-icon">&#xe705;</i> 栏目分类</h3>
+                <ul class="layui-row layui-col-space5">
+                    <!--for item in cards endfor -->
+                    <li class="layui-col-md12 layui-col-xs6"><a href=""><i class="layui-icon">&#xe63c;</i> CV <span class="layui-badge layui-bg-gray">57</span></a></li>
+                    <li class="layui-col-md12 layui-col-xs6"><a href=""><i class="layui-icon">&#xe63c;</i> AI <span class="layui-badge layui-bg-gray">97</span></a></li>
+                    <li class="layui-col-md12 layui-col-xs6"><a href=""><i class="layui-icon">&#xe63c;</i> NLP <span class="layui-badge layui-bg-gray">20</span></a></li>
+                    <li class="layui-col-md12 layui-col-xs6"><a href=""><i class="layui-icon">&#xe63c;</i> ML <span class="layui-badge layui-bg-gray">35</span></a></li>
+                    <li class="layui-col-md12 layui-col-xs6"><a href=""><i class="layui-icon">&#xe63c;</i> Other <span class="layui-badge layui-bg-gray">41</span></a></li>
+                </ul>
+            </div>
+            <div class="tags">
+                <h3 class="title-sidebar"><i class="layui-icon">&#xe66e;</i>传送门</h3>
+                <div>
+                    <!--for item in cards endfor -->
+                    <a class="layui-btn layui-btn-xs layui-btn-primary" style="color:#00ff60" href="https://blog.csdn.net/zhaoguanghe" title='手写体数字在线识别'>CNN</a>
+                    <a class="layui-btn layui-btn-xs layui-btn-primary" style="color:#ff006e" href="https://www.xiangyundiaocha.club/dist/index.html" title='建大扶贫超市'>Shopping</a>
+                    <a class="layui-btn layui-btn-xs layui-btn-primary" style="color:#ff6a00" href="https://www.xiangyundiaocha.club/SharingWEB/Index.aspx" title='社区物品共享网'>ShareSite</a>
+                    <a class="layui-btn layui-btn-xs layui-btn-primary" style="color:#00ff90" href="https://www.xiangyundiaocha.club/yueermht/index.html" title='月儿猕猴桃TM'>Yueermht</a>
+                    <a class="layui-btn layui-btn-xs layui-btn-primary" style="color:#808080" href="https://www.xiangyundiaocha.club/h5pro/lottery.html" title='抽奖页面'>Lottery</a>
+                    <a class="layui-btn layui-btn-xs layui-btn-primary" style="color:#ffd800" href="https://blog.csdn.net/zhaoguanghe" title='小管家商品管理系统'>Xiaoguangjia</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

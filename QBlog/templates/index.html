@@ -105,7 +105,7 @@
                              //console.log(data)//返回json数据
                              var str = ''//拼接html，参考https://blog.csdn.net/this_name_true/article/details/80401892
                              for (var i = 0; i < data.length; i++) {
-                                 str += '<div class="title-article list-card"><div class="list-pic"><a href="https://habit.xiangyuandiaocha.club/article/' + data[i].Id + '"><img src="/static/img/00.png" class="img-full"></a></div><a href="https://habit.xiangyuandiaocha.club/article/' + data[i].Id +'"><h1>' + data[i].Title + '</h1><p>' + data[i].Title + '</p></a> <div class="title-msg"><span><i class="layui-icon">&#xe705;</i> CV </span><span><i class="layui-icon">&#xe60e;</i> ' + data[i].Up_time + ' </span><span class="layui-hide-xs"><i class="layui-icon">&#xe62c;</i> 0℃</span><span class="layui-hide-xs"><i class="layui-icon">&#xe63a;</i> 0条</span></div></div></div>';
+                                 str += '<div class="title-article list-card"><div class="list-pic"><a href="https://api.xiangyuandiaocha.club/article/' + data[i].Id + '"><img src="/static/img/00.png" class="img-full"></a></div><a href="https://api.xiangyuandiaocha.club/article/' + data[i].Id +'"><h1>' + data[i].Title + '</h1><p>' + data[i].Title + '</p></a> <div class="title-msg"><span><i class="layui-icon">&#xe705;</i> CV </span><span><i class="layui-icon">&#xe60e;</i> ' + data[i].Up_time + ' </span><span class="layui-hide-xs"><i class="layui-icon">&#xe62c;</i> 0℃</span><span class="layui-hide-xs"><i class="layui-icon">&#xe63a;</i> 0条</span></div></div></div>';
                              }
                              $("#index").html(str);
                          }
